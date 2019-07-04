@@ -1,17 +1,12 @@
 require_relative 'lib/product'
-require_relative 'lib/movie'
+require_relative 'lib/film'
 require_relative 'lib/book'
+require_relative 'lib/product_collection'
 
-puts 'Вот такие товары у нас есть:'
+collection = ProductCollection.from_dir("#{__dir__}/data/")
 
-film = Movie.from_file("#{__dir__}/data/films/01.txt")
-book = Book.from_file("#{__dir__}/data/books/01.txt")
+collection.sort!(by: :amount, order: :asc)
 
-puts film
-puts book
-
-begin
-  Product.from_file("#{__dir__}/data/books/01.txt")
-rescue NotImplementedError
-  puts 'Метод класса Product.from_file не реализован'
+collection.to_a.each do |product|
+  puts product
 end

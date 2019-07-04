@@ -1,4 +1,4 @@
-class Movie < Product
+class Film < Product
   attr_accessor :title, :year, :director
   
   def self.from_file(file_path)
