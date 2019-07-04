@@ -1,8 +1,21 @@
 class Book < Product
-   attr_accessor :title, :genre, :author
+  attr_accessor :title, :genre, :author
   
+  def self.from_file(file_path)
+    lines = File.readlines(file_path, encoding: 'UTF-8').map(&:chomp)
+    
+    new(
+      title: lines[0],
+      genre: lines[1],
+      author: lines[2],
+      price: lines[3].to_i,
+      amount: lines[4].to_i
+      )
+  end
+    
   def initialize(params)
     super
+    
     @title = params[:title]
     @genre = params[:genre]
     @author = params[:author]
