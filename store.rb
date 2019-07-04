@@ -4,10 +4,14 @@ require_relative 'lib/book'
 
 puts 'Вот такие товары у нас есть:'
 
-products = [
-  Movie.new(title: 'Леон', year: 1994, director: 'Люк Бессон', price: 990, amount: 6),
-  Movie.new(title: 'Дурак', year: 2014, director: 'Юрий Быков', price: 113, amount: 1),
-  Book.new(title: 'Идиот', genre: 'роман', author: 'Федор Достоевский', price: 99, amount: 36)
-  ]
+film = Movie.new(title: 'Леон', director: 'Люк Бессон', price: 990)
+film.year = 1994
+film.update(amount: 5)
 
-products.each { |product| puts product }
+book = Book.new(title: 'Идиот', genre: 'роман', amount: 10)
+book.author = 'Федька Достоевский'
+book.update(author: 'Фёдор Достоевский', price: 1500)
+
+# Выведем результат на экран
+puts film
+puts book
