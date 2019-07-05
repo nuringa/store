@@ -1,32 +1,35 @@
 class ProductCollection
+  attr_reader :products
+
   PRODUCT_TYPES = {
-    film: {dir: 'films', class: Film},
-    book: {dir: 'books', class: Book}
-    }
-  
+    film: { dir: 'films', class: Film },
+    book: { dir: 'books', class: Book },
+    cd: { dir: 'cds', class: Cd }
+  }.freeze
+
   def self.from_dir(dir_path)
     products = []
-    
-    PRODUCT_TYPES.each do |type, hash|
+
+    PRODUCT_TYPES.each do |_type, hash|
       product_dir = hash[:dir]
       product_class = hash[:class]
-      
+
       Dir[dir_path + '/' + product_dir + '/*.txt'].each do |path|
         products << product_class.from_file(path)
       end
     end
-    
+
     new(products)
   end
-  
+
   def initialize(products = [])
     @products = products
   end
-  
+
   def to_a
     @products
   end
-  
+
   def sort!(params)
     case params[:by]
     when :title
@@ -36,9 +39,9 @@ class ProductCollection
     when :amount
       @products.sort_by!(&:amount)
     end
-    
+
     @products.reverse! if params[:order] == :asc
-    
+
     self
   end
 end

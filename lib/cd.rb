@@ -1,15 +1,16 @@
-class Book < Product
-  attr_accessor :title, :genre, :author
+class Cd < Product
+  attr_accessor :title, :genre, :artist, :year
 
   def self.from_file(file_path)
     lines = File.readlines(file_path, encoding: 'UTF-8').map(&:chomp)
 
     new(
       title: lines[0],
-      genre: lines[1],
-      author: lines[2],
-      price: lines[3].to_i,
-      amount: lines[4].to_i
+      artist: lines[1],
+      genre: lines[2],
+      year: lines[3],
+      price: lines[4].to_i,
+      amount: lines[5].to_i
     )
   end
 
@@ -17,19 +18,21 @@ class Book < Product
     super
 
     @title = params[:title]
+    @artist = params[:artist]
     @genre = params[:genre]
     @author = params[:author]
   end
 
   def to_s
-    "Книга \"#{title}\", #{genre}, автор - #{author}, #{super}"
+    "Альбом #{title} - #{artist}, #{genre}, #{year}, #{super}"
   end
 
   def update(params)
     super
 
     @title = params[:title] if params[:title]
+    @artist = params[:artist] if params[:artist]
     @genre = params[:genre] if params[:genre]
-    @author = params[:author] if params[:author]
+    @year = params[:year] if params[:year]
   end
 end
